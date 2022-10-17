@@ -4,13 +4,14 @@ Feature: Pod related networking scenarios
   # @case_id OCP-9747
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @network-openshiftsdn
   @proxy @noproxy
   @heterogeneous @arm64 @amd64
   Scenario: OCP-9747:SDN Pod cannot claim UDP port 4789 on the node as part of a port mapping
+    Given the env is using "OpenShiftSDN" networkType
     Given I have a project
     And SCC "privileged" is added to the "system:serviceaccounts:<%= project.name %>" group
     Given I obtain test data file "networking/pod_with_udp_port_4789.json"
@@ -30,12 +31,14 @@ Feature: Pod related networking scenarios
   @smoke
   @noproxy @disconnected
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
+  @admin
   @network-openshiftsdn
   @heterogeneous @arm64 @amd64
   Scenario: OCP-10031:SDN Container could reach the dns server
+    Given the env is using "OpenShiftSDN" networkType
     Given I have a project
     Given I obtain test data file "pods/ocp10031/pod.json"
     When I run the :create client command with:
@@ -53,13 +56,14 @@ Feature: Pod related networking scenarios
   # @case_id OCP-14986
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @proxy @noproxy @connected
   @network-openshiftsdn
   @heterogeneous @arm64 @amd64
   Scenario: OCP-14986:SDN The openflow list will be cleaned after delete the pods
+    Given the env is using "OpenShiftSDN" networkType
     Given I have a project
     Given I have a pod-for-ping in the project
     Then evaluation of `pod.node_name` is stored in the :node_name clipboard
@@ -88,13 +92,14 @@ Feature: Pod related networking scenarios
   # @case_id OCP-10817
   @admin
   @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @proxy @noproxy @connected
   @network-openshiftsdn
   @heterogeneous @arm64 @amd64
   Scenario: OCP-10817:SDN Check QoS after creating pod
+    Given the env is using "OpenShiftSDN" networkType
     Given I have a project
     # setup iperf server to receive the traffic
     Given I obtain test data file "networking/egress-ingress/qos/iperf-server.json"
@@ -154,8 +159,8 @@ Feature: Pod related networking scenarios
   @admin
   @proxy @noproxy @disconnected
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @network-ovnkubernetes @network-openshiftsdn
   @heterogeneous @arm64 @amd64
   Scenario: OCP-23890:SDN A pod with or without hostnetwork cannot access the MCS port 22623 or 22624 on the master
@@ -192,8 +197,8 @@ Feature: Pod related networking scenarios
   # @case_id OCP-23891
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy
   @heterogeneous @arm64 @amd64
@@ -252,8 +257,8 @@ Feature: Pod related networking scenarios
   # @case_id OCP-23894
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @proxy @noproxy @connected
   @network-ovnkubernetes @network-openshiftsdn
@@ -286,8 +291,8 @@ Feature: Pod related networking scenarios
   @destructive
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
   @network-ovnkubernetes
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @proxy @noproxy
   @heterogeneous @arm64 @amd64
   Scenario: OCP-21846:SDN ovn pod can be scheduled even if the node taint to unschedule
@@ -336,8 +341,8 @@ Feature: Pod related networking scenarios
   # @case_id OCP-26822
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @singlenode
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
@@ -348,6 +353,7 @@ Feature: Pod related networking scenarios
     Given I have a project
     #privileges are needed to support network-pod as hostnetwork pod creation later
     And SCC "privileged" is added to the "system:serviceaccounts:<%= project.name %>" group
+    And the appropriate pod security labels are applied to the namespace
     Given I obtain test data file "networking/pod_with_udp_port_4789_nodename.json"
     When I run oc create over "pod_with_udp_port_4789_nodename.json" replacing paths:
       | ["items"][0]["spec"]["template"]["spec"]["nodeName"] | <%= cb.nodes[0].name %> |
@@ -426,16 +432,16 @@ Feature: Pod related networking scenarios
   # @author anusaxen@redhat.com
   # @case_id OCP-25294
   @admin
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
-  @4.12
+  @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
   Scenario: OCP-25294:SDN Pod should be accesible via node ip and host port
     Given I store the workers in the :workers clipboard
     And the Internal IP of node "<%= cb.workers[0].name %>" is stored in the :worker0_ip clipboard
     And the Internal IP of node "<%= cb.workers[1].name %>" is stored in the :worker1_ip clipboard
-    And I have a project
+    And I have a project with proper privilege
     Given I obtain test data file "networking/pod-for-ping-with-hostport.yml"
     When I run oc create as admin over "pod-for-ping-with-hostport.yml" replacing paths:
       | ["metadata"]["namespace"] |  <%= project.name %>       |
@@ -496,8 +502,8 @@ Feature: Pod related networking scenarios
   @destructive
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
   @network-ovnkubernetes
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
   Scenario: OCP-26014:SDN Pod readiness check for OVN
@@ -596,12 +602,13 @@ Feature: Pod related networking scenarios
   @admin
   @destructive
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @network-openshiftsdn
   @proxy @noproxy
   @heterogeneous @arm64 @amd64
   Scenario: OCP-22034:SDN Check the unused ip are released after node reboot
+    Given the env is using "OpenShiftSDN" networkType
     Given I store the workers in the :workers clipboard
     Given I use the "<%= cb.workers[0].name %>" node
     And I run commands on the host:
@@ -621,6 +628,7 @@ Feature: Pod related networking scenarios
   @admin
   @destructive
   Scenario: OCP-41666:SDN Pod stuck in container creating - failed to run CNI IPAM ADD: failed to allocate for range 0: no IP addresses available in range set
+    Given the env is using "OpenShiftSDN" networkType
     Given I switch to cluster admin pseudo user
     When I run the :label admin command with:
       | resource  | machineconfigpool         |

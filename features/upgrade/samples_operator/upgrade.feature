@@ -19,9 +19,12 @@ Feature: image-registry operator upgrade tests
     Given the expression should be true> cluster_operator('openshift-samples').condition(type: 'Progressing')['status'] == "False"
     Given the expression should be true> cluster_operator('openshift-samples').condition(type: 'Degraded')['status'] == "False"
     # Check cluster operator image-registry should be in correct status
+    And I wait for the steps to pass:
+    """
     Given the expression should be true> cluster_operator('image-registry').condition(type: 'Available')['status'] == "True"
     Given the expression should be true> cluster_operator('image-registry').condition(type: 'Progressing')['status'] == "False"
     Given the expression should be true> cluster_operator('image-registry').condition(type: 'Degraded')['status'] == "False"
+    """
     # Check cluster operator openshift-controller-manager should be in correct status
     Given the expression should be true> cluster_operator('openshift-controller-manager').condition(type: 'Available')['status'] == "True"
     Given the expression should be true> cluster_operator('openshift-controller-manager').condition(type: 'Progressing')['status'] == "False"
@@ -33,8 +36,8 @@ Feature: image-registry operator upgrade tests
   @users=upuser1,upuser2
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @singlenode
   @proxy @noproxy @disconnected @connected
   @upgrade
@@ -47,9 +50,12 @@ Feature: image-registry operator upgrade tests
     Given the expression should be true> cluster_operator('openshift-samples').condition(type: 'Progressing')['status'] == "False"
     Given the expression should be true> cluster_operator('openshift-samples').condition(type: 'Degraded')['status'] == "False"
     # Check cluster operator image-registry should be in correct status
+    And I wait for the steps to pass:
+    """
     Given the expression should be true> cluster_operator('image-registry').condition(type: 'Available')['status'] == "True"
     Given the expression should be true> cluster_operator('image-registry').condition(type: 'Progressing')['status'] == "False"
     Given the expression should be true> cluster_operator('image-registry').condition(type: 'Degraded')['status'] == "False"
+    """
     # Check cluster operator openshift-controller-manager should be in correct status
     Given the expression should be true> cluster_operator('openshift-controller-manager').condition(type: 'Available')['status'] == "True"
     Given the expression should be true> cluster_operator('openshift-controller-manager').condition(type: 'Progressing')['status'] == "False"

@@ -4,8 +4,8 @@ Feature: SDN/OVN metrics related networking scenarios
   # @case_id OCP-28519
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @singlenode
   @proxy @noproxy @connected
   @network-openshiftsdn
@@ -18,7 +18,8 @@ Feature: SDN/OVN metrics related networking scenarios
     And evaluation of `cb.metrics_ep_ip + ':' +cb.metrics_ep_port` is stored in the :metrics_ep clipboard
 
     Given I use the "openshift-monitoring" project
-    And evaluation of `secret(service_account('prometheus-k8s').get_secret_names.find {|s| s.match('token')}).token` is stored in the :sa_token clipboard
+    Given I find a bearer token of the prometheus-k8s service account
+    And evaluation of `service_account('prometheus-k8s').cached_tokens.first` is stored in the :sa_token clipboard
 
     #Running curl -k http://<%= cb.metrics_ep %>/metrics if version is < 4.6
     #Running curl -k -H "Authorization: Bearer <%= cb.sa_token %>" https://<%= cb.metrics_ep %>/metrics if version is > 4.5 as sdn mmetrics should be using https scheme
@@ -43,8 +44,8 @@ Feature: SDN/OVN metrics related networking scenarios
   # @case_id OCP-16016
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @proxy @noproxy @connected
   @network-openshiftsdn
   @heterogeneous @arm64 @amd64
@@ -56,7 +57,8 @@ Feature: SDN/OVN metrics related networking scenarios
     And evaluation of `cb.metrics_ep_ip + ':' +cb.metrics_ep_port` is stored in the :metrics_ep clipboard
 
     Given I use the "openshift-monitoring" project
-    And evaluation of `secret(service_account('prometheus-k8s').get_secret_names.find {|s| s.match('token')}).token` is stored in the :sa_token clipboard
+    Given I find a bearer token of the prometheus-k8s service account
+    And evaluation of `service_account('prometheus-k8s').cached_tokens.first` is stored in the :sa_token clipboard
 
     #Running curl -k http://<%= cb.metrics_ep %>/metrics if version is < 4.6
     #Running curl -k -H "Authorization: Bearer <%= cb.sa_token %>" https://<%= cb.metrics_ep %>/metrics if version is > 4.5 as sdn metrics should be using https scheme
@@ -74,15 +76,17 @@ Feature: SDN/OVN metrics related networking scenarios
     Then the step should succeed
     #The idea is to check whether these metrics are being relayed on the port 9101
     And the output should contain:
-      | kubeproxy_sync_proxy_rules_duration       |
-      | kubeproxy_sync_proxy_rules_last_timestamp |
+      | openshift_sdn_arp  |
+      | openshift_sdn_pod  |
+      | openshift_sdn_vnid |
+      | openshift_sdn_ovs  |
   
   # @author anusaxen@redhat.com
   # @case_id OCP-37704
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @singlenode
   @network-ovnkubernetes
   @proxy @noproxy @disconnected @connected
@@ -99,7 +103,8 @@ Feature: SDN/OVN metrics related networking scenarios
     And evaluation of `cb.ovn_node_metrics_ep_ip + ':' +cb.ovn_node_metrics_ep_port` is stored in the :ovn_node_metrics_ep clipboard
     
     Given I use the "openshift-monitoring" project
-    And evaluation of `secret(service_account('prometheus-k8s').get_secret_names.find {|s| s.match('token')}).token` is stored in the :sa_token clipboard
+    Given I find a bearer token of the prometheus-k8s service account
+    And evaluation of `service_account('prometheus-k8s').cached_tokens.first` is stored in the :sa_token clipboard
 
     #Storing respective curl queries in clipboards to be able to call them during execution on prometheus pods
     Given evaluation of `%Q{curl -k -H \"Authorization: Bearer <%= cb.sa_token %>\" https://<%= cb.ovn_master_metrics_ep %>/metrics}` is stored in the :curl_query_for_ovn_master clipboard

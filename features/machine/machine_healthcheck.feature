@@ -3,9 +3,10 @@ Feature: MachineHealthCheck Test Scenarios
   # @author jhou@redhat.com
   # @case_id OCP-25897
   @admin
+  @aro
   @destructive
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi @alicloud-ipi
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
@@ -43,9 +44,10 @@ Feature: MachineHealthCheck Test Scenarios
   # @author jhou@redhat.com
   # @case_id OCP-26311
   @admin
+  @aro
   @destructive
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi @alicloud-ipi
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
@@ -75,9 +77,10 @@ Feature: MachineHealthCheck Test Scenarios
   # @author jhou@redhat.com
   # @case_id OCP-25734
   @admin
+  @aro
   @destructive
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi @alicloud-ipi
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
@@ -109,9 +112,10 @@ Feature: MachineHealthCheck Test Scenarios
   # @author jhou@redhat.com
   # @case_id OCP-25691
   @admin
+  @aro
   @destructive
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi @alicloud-ipi
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
@@ -163,11 +167,13 @@ Feature: MachineHealthCheck Test Scenarios
   # @author miyadav@redhat.com
   # @case_id OCP-28718
   @admin
+  @aro
   @destructive
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
+  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi @alicloud-ipi
   Scenario: OCP-28718:ClusterInfrastructure Machine Node startup timeout should be configurable
     Given I have an IPI deployment
     And I switch to cluster admin pseudo user
@@ -204,9 +210,10 @@ Feature: MachineHealthCheck Test Scenarios
   # @author jhou@redhat.com
   # @case_id OCP-25727
   @admin
+  @aro
   @destructive
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi @alicloud-ipi
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
@@ -236,6 +243,7 @@ Feature: MachineHealthCheck Test Scenarios
   @admin
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
+  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi @alicloud-ipi
   Scenario: OCP-29857:ClusterInfrastructure MaxUnhealthy should not allow malformed values
     Given I have an IPI deployment
     And I switch to cluster admin pseudo user
@@ -262,9 +270,10 @@ Feature: MachineHealthCheck Test Scenarios
   # @author miyadav@redhat.com
   # @case_id OCP-28859
   @admin
+  @aro
   @destructive
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi @alicloud-ipi
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
@@ -304,10 +313,12 @@ Feature: MachineHealthCheck Test Scenarios
   # @author miyadav@redhat.com
   # @case_id OCP-33714
   @admin
+  @osd_ccs @aro
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
+  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi @alicloud-ipi
   Scenario: OCP-33714:ClusterInfrastructure Leverage OpenAPI validation within MHC
     Given I switch to cluster admin pseudo user
     Then I use the "openshift-machine-api" project
@@ -325,10 +336,12 @@ Feature: MachineHealthCheck Test Scenarios
   # @author miyadav@redhat.com
   # @case_id OCP-34095
   @admin
+  @osd_ccs @aro
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
+  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi @alicloud-ipi
   Scenario: OCP-34095:ClusterInfrastructure timeout field without units(h,m,s) shoud not be allowed to be stored
     Given I have an IPI deployment
     And I switch to cluster admin pseudo user

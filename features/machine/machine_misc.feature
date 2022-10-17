@@ -62,9 +62,10 @@ Feature: Machine misc features testing
   # @author miyadav@redhat.com
   # @case_id OCP-35454
   @admin
+  @aro
   @destructive
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
@@ -120,9 +121,10 @@ Feature: Machine misc features testing
   # @author miyadav@redhat.com
   # @case_id OCP-37744
   @admin
+  @aro
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @azure-upi @aws-upi @alicloud-upi
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
@@ -171,6 +173,8 @@ Feature: Machine misc features testing
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
+  @vsphere-ipi
+  @vsphere-upi
   Scenario: OCP-37180:ClusterInfrastructure Report vCenter version to telemetry
     Given I switch to cluster admin pseudo user
     When I perform the GET prometheus rest client with:

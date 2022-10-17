@@ -71,8 +71,8 @@ Feature: build 'apps' with CLI
   # @case_id OCP-11133
   @proxy
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @connected
@@ -141,8 +141,8 @@ Feature: build 'apps' with CLI
   # @author xiuwang@redhat.com
   # @case_id OCP-11139
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
@@ -186,8 +186,8 @@ Feature: build 'apps' with CLI
   # @case_id OCP-11227
   @proxy
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @connected
@@ -220,8 +220,8 @@ Feature: build 'apps' with CLI
   # @case_id OCP-10771
   @proxy
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @connected
@@ -247,8 +247,8 @@ Feature: build 'apps' with CLI
   # @case_id OCP-11943
   @proxy
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @connected
@@ -317,8 +317,8 @@ Feature: build 'apps' with CLI
   # @author cryan@redhat.com
   # @case_id OCP-11776
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
@@ -353,8 +353,8 @@ Feature: build 'apps' with CLI
   # @author xiuwang@redhat.com
   # @case_id OCP-11552
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @connected
@@ -419,8 +419,8 @@ Feature: build 'apps' with CLI
   # @case_id OCP-11582
   @proxy
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @connected
@@ -642,8 +642,8 @@ Feature: build 'apps' with CLI
       | Git.*Cancelled |
     """
 
-    @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-    @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+    @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+    @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
     @upgrade-sanity
     @singlenode
     @noproxy @connected
@@ -715,8 +715,8 @@ Feature: build 'apps' with CLI
     Then the "ruby-hello-world-6" build becomes :failed
     Then the "ruby-hello-world-7" build becomes :failed
 
-    @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-    @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+    @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+    @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
     @upgrade-sanity
     @singlenode
     @noproxy @connected
@@ -760,8 +760,8 @@ Feature: build 'apps' with CLI
   # @author cryan@redhat.com
   # @case_id OCP-11023
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
@@ -793,8 +793,8 @@ Feature: build 'apps' with CLI
   # @case_id OCP-17523
   @proxy
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @connected
@@ -804,7 +804,7 @@ Feature: build 'apps' with CLI
   Scenario: OCP-17523:BuildAPI io.openshift.build.commit.ref displays correctly in build reference on imagestreamtag if building from git branch reference
     Given I have a project
     When I run the :new_app client command with:
-      | app_repo | quay.io/openshifttest/ruby-27:multiarch~https://github.com/openshift/ruby-hello-world#config |
+      | app_repo | quay.io/openshifttest/ruby-27:1.2.0~https://github.com/openshift/ruby-hello-world#config |
     Then the step should succeed
     Given the "ruby-hello-world-1" build was created
     And the "ruby-hello-world-1" build completed
@@ -818,8 +818,8 @@ Feature: build 'apps' with CLI
   # @case_id OCP-19631
   @proxy
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @connected
@@ -958,8 +958,8 @@ Feature: build 'apps' with CLI
   # @case_id OCP-18962
   @proxy
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @connected
@@ -988,7 +988,7 @@ Feature: build 'apps' with CLI
     Then the step should succeed
     #Insert cm and secret to bc with empty destination - succeed
     When I run the :new_build client command with:
-      | app_repo         | quay.io/openshifttest/ruby-27:multiarch~https://github.com/openshift/ruby-hello-world |
+      | app_repo         | quay.io/openshifttest/ruby-27:1.2.0~https://github.com/openshift/ruby-hello-world |
       | build_config_map | cmtest1:.                                                                                   |
       | build_config_map | cmtest2:./newdir                                                                            |
       | strategy         | docker                                                                                      |
@@ -1020,7 +1020,7 @@ Feature: build 'apps' with CLI
     Then the step should succeed
     #Add a configmaps with a multi-level dirs - succeed
     When I run the :new_build client command with:
-      | app_repo         | quay.io/openshifttest/ruby-27:multiarch~https://github.com/openshift/ruby-hello-world |
+      | app_repo         | quay.io/openshifttest/ruby-27:1.2.0~https://github.com/openshift/ruby-hello-world |
       | build_config_map | cmtest1:./newdir1/newdir2/newdir3                                                           |
       | strategy         | docker                                                                                      |
     Then the step should succeed

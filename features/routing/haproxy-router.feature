@@ -4,13 +4,14 @@ Feature: Testing haproxy router
   # @case_id OCP-11903
   @smoke
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @connected
   @network-ovnkubernetes @network-openshiftsdn
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-11903:NetworkEdge haproxy cookies based sticky session for unsecure routes
     #create route and service which has two endpoints
     Given I have a project
@@ -38,7 +39,7 @@ Feature: Testing haproxy router
       | -sS |
       | http://<%= route("service-unsecure", service("service-unsecure")).dns(by: user) %>/ |
       | -c |
-      | /tmp/cookies |
+      | /data/cookies-11903 |
     Then the step should succeed
     And the output should contain "Hello-OpenShift web-server-2"
     """
@@ -59,7 +60,7 @@ Feature: Testing haproxy router
       | -sS |
       | http://<%= route("service-unsecure", service("service-unsecure")).dns(by: user) %>/ |
       | -b |
-      | /tmp/cookies |
+      | /data/cookies-11903 |
     Then the step should succeed
     And the output should contain "Hello-OpenShift web-server-2"
     """
@@ -67,13 +68,14 @@ Feature: Testing haproxy router
   # @author bmeng@redhat.com
   # @case_id OCP-11130
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @connected
   @network-ovnkubernetes @network-openshiftsdn
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-11130:NetworkEdge haproxy cookies based sticky session for edge termination routes
     #create route and service which has two endpoints
     Given I have a project
@@ -104,7 +106,7 @@ Feature: Testing haproxy router
       | https://<%= route("route-edge", service("route-edge")).dns(by: user) %>/ |
       | -k |
       | -c |
-      | /tmp/cookies |
+      | /data/cookies-11130 |
     Then the step should succeed
     And the output should contain "Hello-OpenShift web-server-1"
     """
@@ -127,7 +129,7 @@ Feature: Testing haproxy router
       | https://<%= route("route-edge", service("route-edge")).dns(by: user) %>/ |
       | -k |
       | -b |
-      | /tmp/cookies |
+      | /data/cookies-11130 |
     Then the step should succeed
     And the output should contain "Hello-OpenShift web-server-1"
     """
@@ -135,13 +137,14 @@ Feature: Testing haproxy router
   # @author bmeng@redhat.com
   # @case_id OCP-11619
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @connected
   @network-ovnkubernetes @network-openshiftsdn
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-11619:NetworkEdge Limit the number of TCP connection per IP in specified time period
     Given I have a project
     Given I obtain test data file "routing/web-server-1.yaml"
@@ -190,8 +193,8 @@ Feature: Testing haproxy router
   # @case_id OCP-15044
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @connected
@@ -237,8 +240,8 @@ Feature: Testing haproxy router
   # @case_id OCP-15049
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @connected
@@ -284,13 +287,14 @@ Feature: Testing haproxy router
   # @author bmeng@redhat.com
   # @case_id OCP-10043
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @connected
   @network-ovnkubernetes @network-openshiftsdn
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-10043:NetworkEdge Set balance leastconn for passthrough routes
     Given I have a project
     Given I obtain test data file "routing/web-server-1.yaml"
@@ -338,13 +342,14 @@ Feature: Testing haproxy router
   # @author yadu@redhat.com
   # @case_id OCP-11679
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @disconnected @connected
   @network-ovnkubernetes @network-openshiftsdn
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-11679:NetworkEdge Disable haproxy hash based sticky session for unsecure routes
     Given I have a project
     Given I obtain test data file "routing/web-server-1.yaml"
@@ -373,11 +378,11 @@ Feature: Testing haproxy router
       | -sS |
       | http://<%= route("service-unsecure", service("service-unsecure")).dns(by: user) %>/ |
       | -c |
-      | /tmp/cookies |
+      | /data/cookies-11679 |
     Then the step should succeed
     And the output should contain "Hello-OpenShift"
     When I execute on the pod:
-      | bash | -c | for i in {1..10} ; do curl -sS  http://<%= route("service-unsecure", service("service-unsecure")).dns(by: user) %>/ -b /tmp/cookies ; done |
+      | bash | -c | for i in {1..10} ; do curl -sS  http://<%= route("service-unsecure", service("service-unsecure")).dns(by: user) %>/ -b /data/cookies-11679 ; done |
     Then the step should succeed
     And the output should contain:
       | Hello-OpenShift web-server-1 |
@@ -387,13 +392,14 @@ Feature: Testing haproxy router
   # @case_id OCP-15872
   @smoke
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @disconnected @connected
   @network-ovnkubernetes @network-openshiftsdn
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-15872:NetworkEdge can set cookie name for unsecure routes by annotation
     #create route and service which has two endpoints
     Given the master version >= "3.7"
@@ -438,13 +444,14 @@ Feature: Testing haproxy router
   # @author hongli@redhat.com
   # @case_id OCP-15873
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @noproxy @disconnected @connected
   @network-ovnkubernetes @network-openshiftsdn
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-15873:NetworkEdge can set cookie name for edge routes by annotation
     #create route and service which has two endpoints
     Given the master version >= "3.7"

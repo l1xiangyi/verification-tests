@@ -7,6 +7,8 @@ Feature: Check status via oc status, wait etc
   @proxy @noproxy @connected
   @network-ovnkubernetes @network-openshiftsdn
   @heterogeneous @arm64 @amd64
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   Scenario: OCP-11147:Workloads Show RC info and indicate bad secrets reference in 'oc status'
     Given I have a project
 
@@ -19,7 +21,7 @@ Feature: Check status via oc status, wait etc
     When I run the :status client command
     Then the step should succeed
     Then the output should match:
-      | rc/<%= cb.stdrc_name %> runs quay.io/openshifttest/base-alpine:multiarch |
+      | rc/<%= cb.stdrc_name %> runs quay.io/openshifttest/base-alpine:1.2.0 |
       | rc/<%= cb.stdrc_name %> created                                          |
       | \\d warning.*oc status.* to see details                                  |
     When I run the :status client command with:

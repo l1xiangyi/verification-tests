@@ -3,12 +3,13 @@ Feature: deployment related features
   # @author xxing@redhat.com
   # @case_id OCP-12543
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-12543:Workloads Restart a failed deployment by oc deploy
     Given I have a project
     Given I obtain test data file "deployment/dc-with-pre-mid-post.yaml"
@@ -41,12 +42,13 @@ Feature: deployment related features
   # @case_id OCP-10643
   @smoke
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-10643:Workloads Manually make deployment
     Given I have a project
     Given I obtain test data file "deployment/manual.json"
@@ -86,12 +88,13 @@ Feature: deployment related features
   # @author xxing@redhat.com
   # @case_id OCP-11695
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-11695:Workloads CLI rollback output to file
     Given I have a project
     Given I obtain test data file "deployment/deployment1.json"
@@ -177,8 +180,8 @@ Feature: deployment related features
       | "value": "Plqe5Wev"    |
       | <changed_val1>         |
       | <changed_val2>         |
-    @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-    @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+    @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+    @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
     @upgrade-sanity
     @singlenode
     @proxy @noproxy @connected
@@ -192,12 +195,13 @@ Feature: deployment related features
   # @author xxing@redhat.com
   # @case_id OCP-11877
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-11877:Workloads CLI rollback with one component
     Given I have a project
     Given I obtain test data file "deployment/deployment1.json"
@@ -242,12 +246,13 @@ Feature: deployment related features
   # @author pruan@redhat.com
   # @case_id OCP-12133
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-12133:Workloads Can't stop a deployment in Failed status
     Given I have a project
     Given I obtain test data file "deployment/test-stop-failed-deployment.json"
@@ -283,12 +288,13 @@ Feature: deployment related features
   # @author pruan@redhat.com
   # @case_id OCP-12246
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-12246:Workloads Stop a "Running" deployment
     Given I have a project
     Given I obtain test data file "deployment/dc-with-pre-mid-post.yaml"
@@ -313,17 +319,18 @@ Feature: deployment related features
   # @author cryan@redhat.com
   # @case_id OCP-10648
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
   @network-ovnkubernetes @network-openshiftsdn
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-10648:Workloads Rollback via CLI when previous version failed
     Given I have a project
     When I run the :create_deploymentconfig client command with:
-      | image | quay.io/openshifttest/hello-openshift@sha256:eb47fdebd0f2cc0c130228ca972f15eb2858b425a3df15f10f7bb519f60f0c96 |
+      | image | quay.io/openshifttest/hello-openshift@sha256:b6296396b632d15daf9b5e62cf26da20d76157161035fefddbd0e7f7749f4167 |
       | name  | mydc                  |
     Then the step should succeed
     And I wait until the status of deployment "mydc" becomes :complete
@@ -403,12 +410,12 @@ Feature: deployment related features
   # @case_id OCP-9563
   @singlenode
   @proxy @noproxy @connected
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   Scenario: OCP-9563:Workloads A/B Deployment
     Given I have a project
     When I run the :new_app client command with:
-      | docker_image | quay.io/openshifttest/deployment-example@sha256:9e0a0cd621fcb46b3439cb8979a0467dfaadb934215e8544193741aae2454668 |
+      | docker_image | quay.io/openshifttest/deployment-example@sha256:9d29ff0fdbbec33bb4eebb0dbe0d0f3860a856987e5481bb0fc39f3aba086184 |
       | name         | ab-example-a                                                                                                     |
       | l            | ab-example=true                                                                                                  |
       | env          | SUBTITLE=shardA                                                                                                  |
@@ -423,7 +430,7 @@ Feature: deployment related features
     Then I wait for a web server to become available via the "ab-example" route
     And the output should contain "shardA"
     When I run the :new_app client command with:
-      | docker_image | quay.io/openshifttest/deployment-example@sha256:9e0a0cd621fcb46b3439cb8979a0467dfaadb934215e8544193741aae2454668 |
+      | docker_image | quay.io/openshifttest/deployment-example@sha256:9d29ff0fdbbec33bb4eebb0dbe0d0f3860a856987e5481bb0fc39f3aba086184 |
       | name         | ab-example-b                                                                                                     |
       | l            | ab-example=true                                                                                                  |
       | env          | SUBTITLE=shardB                                                                                                  |
@@ -463,20 +470,21 @@ Feature: deployment related features
   # @author yinzhou@redhat.com
   # @case_id OCP-9566
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-9566:Workloads Blue-Green Deployment
     Given I have a project
     When I run the :new_app client command with:
-      | docker_image | quay.io/openshifttest/deployment-example:v1-multiarch |
+      | docker_image | quay.io/openshifttest/deployment-example:v1-1.2.0 |
       | name         | bluegreen-example-old                       |
     Then the step should succeed
     When I run the :new_app client command with:
-      | docker_image | quay.io/openshifttest/deployment-example:v2-multiarch |
+      | docker_image | quay.io/openshifttest/deployment-example:v2-1.2.0 |
       | name         | bluegreen-example-new                       |
     Then the step should succeed
     #When I expose the "bluegreen-example-old" service
@@ -574,8 +582,8 @@ Feature: deployment related features
   # @author pruan@redhat.com
   # @case_id OCP-11939
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
@@ -642,12 +650,13 @@ Feature: deployment related features
   # @author yinzhou@redhat.com
   # @case_id OCP-11769
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-11769:Workloads Start new deployment when deployment running
     Given I have a project
     Given I obtain test data file "deployment/dc-with-pre-mid-post.yaml"
@@ -669,8 +678,8 @@ Feature: deployment related features
   # @author cryan@redhat.com
   # @case_id OCP-12151
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
@@ -726,8 +735,8 @@ Feature: deployment related features
   # @case_id OCP-10617
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
@@ -769,16 +778,17 @@ Feature: deployment related features
   # @author yinzhou@redhat.com
   # @case_id OCP-11221
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
   @heterogeneous @arm64 @amd64
+  @rosa @osd_ccs @aro
   Scenario: OCP-11221:Workloads Scale up when deployment running
     Given I have a project
     When I run the :create_deploymentconfig client command with:
-      | image | quay.io/openshifttest/deployment-example@sha256:9e0a0cd621fcb46b3439cb8979a0467dfaadb934215e8544193741aae2454668 |
+      | image | quay.io/openshifttest/deployment-example@sha256:9d29ff0fdbbec33bb4eebb0dbe0d0f3860a856987e5481bb0fc39f3aba086184 |
       | name  | deployment-example                                                                                               |
     Then the step should succeed
     And I wait until the status of deployment "deployment-example" becomes :complete
@@ -827,6 +837,7 @@ Feature: deployment related features
   # @author yinzhou@redhat.com
   # @case_id OCP-11326
   @smoke
+  @inactive
   Scenario: OCP-11326:Workloads Support verbs of Deployment in OpenShift
     Given I have a project
     Given I obtain test data file "deployment/extensions/deployment.yaml"
@@ -941,8 +952,8 @@ Feature: deployment related features
   # @case_id OCP-16443
   @proxy
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @connected
@@ -964,8 +975,8 @@ Feature: deployment related features
   # @author yinzhou@redhat.com
   # @case_id OCP-31200
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
@@ -974,7 +985,7 @@ Feature: deployment related features
     Given the master version >= "4.5"
     Given I have a project
     When I run the :new_app client command with:
-      | app_repo             | quay.io/openshifttest/deployment-example:v1-multiarch |
+      | app_repo             | quay.io/openshifttest/deployment-example:v1-1.2.0 |
       | name                 | ab-example-a                                          |
       | as_deployment_config | true                                                  |
       | l                    | ab-example=true                                       |
@@ -993,7 +1004,7 @@ Feature: deployment related features
     And the output should contain "shardA"
     """
     When I run the :new_app client command with:
-      | app_repo             | quay.io/openshifttest/deployment-example:v1-multiarch |
+      | app_repo             | quay.io/openshifttest/deployment-example:v1-1.2.0 |
       | name                 | ab-example-b                                          |
       | as_deployment_config | true                                                  |
       | l                    | ab-example=true                                       |

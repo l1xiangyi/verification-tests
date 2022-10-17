@@ -31,13 +31,14 @@ Feature: Quota related scenarios
       | <expr1> |
       | <expr2> |
 
-    @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-    @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+    @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+    @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
     @upgrade-sanity
     @singlenode
     @proxy @noproxy @connected
     @network-ovnkubernetes @network-openshiftsdn
     @heterogeneous @arm64 @amd64
+    @inactive
     Examples:
       | case_id        | path     | file                           | pod_name                  | expr1             | expr2                                |
       | OCP-11754:Node | ocp11754 | pod-request-limit-valid-3.yaml | pod-request-limit-valid-3 | cpu\\s+100m\\s+30 | memory\\s+(134217728\|128Mi)\\s+16Gi | # @case_id OCP-11754
@@ -45,6 +46,7 @@ Feature: Quota related scenarios
       | OCP-12145:Node | ocp12145 | pod-request-limit-valid-2.yaml | pod-request-limit-valid-2 | cpu\\s+200m\\s+30 | memory\\s+(268435456\|256Mi)\\s+16Gi | # @case_id OCP-12145
 
   # @author qwang@redhat.com
+  # @author weinliu@redhat.com
   # @case_id OCP-12292
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
@@ -76,7 +78,7 @@ Feature: Quota related scenarios
       | f | pod-request-limit-invalid-1.yaml |
     Then the step should fail
     And the output should match:
-      | (?i)Failed quota: myquota: must specify cpu,memory |
+      | (?i)Failed quota: myquota: must specify cpu.*memory |
     When I run the :describe client command with:
       | resource | quota   |
       | name     | myquota |
@@ -88,8 +90,8 @@ Feature: Quota related scenarios
   # @case_id OCP-12256
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @disconnected @connected
@@ -132,8 +134,8 @@ Feature: Quota related scenarios
   # @case_id OCP-12206
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @disconnected @connected
@@ -229,8 +231,8 @@ Feature: Quota related scenarios
   # @case_id OCP-10801
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @disconnected @connected
@@ -290,8 +292,8 @@ Feature: Quota related scenarios
   # @case_id OCP-11251
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @disconnected @connected
@@ -371,8 +373,8 @@ Feature: Quota related scenarios
   # @case_id OCP-11568
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @disconnected @connected
@@ -534,11 +536,12 @@ Feature: Quota related scenarios
       | requests.memory\\s+0\\s+1Gi |
 
   # @author chezhang@redhat.com
+  # @author weinliu@redhat.com
   # @case_id OCP-10706
   @admin
-  @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @4.12 @4.11
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
@@ -569,7 +572,7 @@ Feature: Quota related scenarios
       | pods\\s+0\\s+2                   |
       | replicationcontrollers\\s+0\\s+3 |
       | resourcequotas\\s+1\\s+3         |
-      | secrets\\s+9\\s+5                |
+      | secrets\\s+6\\s+5                |
       | services\\s+0\\s+5               |
     Given I obtain test data file "quota/ocp10706/mysecret.json"
     When I run the :create client command with:
@@ -593,7 +596,7 @@ Feature: Quota related scenarios
       | pods\\s+0\\s+2                   |
       | replicationcontrollers\\s+0\\s+3 |
       | resourcequotas\\s+1\\s+3         |
-      | secrets\\s+9\\s+15               |
+      | secrets\\s+6\\s+15               |
       | services\\s+0\\s+5               |
     Given I obtain test data file "quota/ocp10706/mysecret.json"
     When I run the :create client command with:
@@ -609,7 +612,7 @@ Feature: Quota related scenarios
       | pods\\s+0\\s+2                   |
       | replicationcontrollers\\s+0\\s+3 |
       | resourcequotas\\s+1\\s+3         |
-      | secrets\\s+10\\s+15              |
+      | secrets\\s+7\\s+15               |
       | services\\s+0\\s+5               |
 
   # @author chezhang@redhat.com
@@ -673,8 +676,8 @@ Feature: Quota related scenarios
   # @bug_id 1333122
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @disconnected @connected
@@ -750,9 +753,10 @@ Feature: Quota related scenarios
     """
 
   # @author qwang@redhat.com
+  # @author weinliu@redhat.com
   # @case_id OCP-11927
   @admin
-  @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
+  @4.12 @4.11 
   @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
   @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
   @upgrade-sanity
@@ -777,7 +781,7 @@ Feature: Quota related scenarios
       | pods\\s+0\\s+20                   |
       | replicationcontrollers\\s+0\\s+30 |
       | resourcequotas\\s+1\\s+1          |
-      | secrets\\s+9\\s+15                |
+      | secrets\\s+6\\s+15                |
       | services\\s+0\\s+10               |
     Given I obtain test data file "quota/ocp11927/pod-request-limit-valid-4.yaml"
     When I run the :create client command with:
@@ -794,15 +798,15 @@ Feature: Quota related scenarios
       | pods\\s+1\\s+20                   |
       | replicationcontrollers\\s+0\\s+30 |
       | resourcequotas\\s+1\\s+1          |
-      | secrets\\s+9\\s+15                |
+      | secrets\\s+6\\s+15                |
       | services\\s+0\\s+10               |
 
   # @author chezhang@redhat.com
   # @case_id OCP-10945
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
@@ -846,8 +850,8 @@ Feature: Quota related scenarios
   # @case_id OCP-11983
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @disconnected @connected
@@ -903,6 +907,7 @@ Feature: Quota related scenarios
 
   # @author chezhang@redhat.com
   # @case_id OCP-12086
+  @flaky
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
   @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
@@ -970,11 +975,12 @@ Feature: Quota related scenarios
       | pods\\s+0\\s+10  |
 
   # @author chezhang@redhat.com
+  # @author weinliu@redhat.com
   # @case_id OCP-11348
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
@@ -1058,8 +1064,11 @@ Feature: Quota related scenarios
       | name=pod-besteffort-terminating |
     And I wait up to 70 seconds for the steps to pass:
     """
-    When I get project pods
-    Then the output should match "pod-besteffort-terminating.*DeadlineExceeded"
+      When I run the :describe client command with:
+        | resource | pod                        |
+        | name     | pod-besteffort-terminating |
+       Then the output should match:
+        | DeadlineExceeded |
     """
     When I run the :describe client command with:
       | resource | quota |
@@ -1073,8 +1082,8 @@ Feature: Quota related scenarios
   # @case_id OCP-11636
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @disconnected @connected
@@ -1094,8 +1103,8 @@ Feature: Quota related scenarios
   # @case_id OCP-11827
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @disconnected @connected
@@ -1115,8 +1124,8 @@ Feature: Quota related scenarios
   # @case_id OCP-11000
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @disconnected @connected
@@ -1167,8 +1176,8 @@ Feature: Quota related scenarios
   # @case_id OCP-10283
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @disconnected @connected
@@ -1203,8 +1212,8 @@ Feature: Quota related scenarios
   # @case_id OCP-11660
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @disconnected @connected
@@ -1261,8 +1270,8 @@ Feature: Quota related scenarios
   # @case_id OCP-11389
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @disconnected @connected

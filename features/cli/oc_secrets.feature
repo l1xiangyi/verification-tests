@@ -2,8 +2,8 @@ Feature: oc_secrets.feature
 
   # @author cryan@redhat.com
   # @case_id OCP-12600
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @proxy @noproxy
   Scenario: OCP-12600:Authentication Add secrets to serviceaccount via oc secrets add
     Given I have a project
@@ -57,12 +57,13 @@ Feature: oc_secrets.feature
   # @author xiaocwan@redhat.com
   # @case_id OCP-10631
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy
   @heterogeneous @arm64 @amd64
+  @osd_ccs @aro @rosa
   Scenario: OCP-10631:Authentication Project admin can process local directory or files and convert it to kubernetes secret
     Given I have a project
     When the "tmpfoo" file is created with the following lines:
@@ -109,8 +110,8 @@ Feature: oc_secrets.feature
 
   # @author xxia@redhat.com
   # @case_id OCP-11900
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy
   Scenario: OCP-11900:Authentication Check name requirements for oc secret

@@ -4,8 +4,8 @@ Feature: oc patch/apply related scenarios
   # @case_id OCP-10696
   @smoke
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @proxy @noproxy @connected
@@ -15,7 +15,7 @@ Feature: oc patch/apply related scenarios
     Given I have a project
     And I run the :create_deploymentconfig client command with:
       | name  | hello                                               |
-      | image | quay.io/openshifttest/hello-openshift@sha256:eb47fdebd0f2cc0c130228ca972f15eb2858b425a3df15f10f7bb519f60f0c96 |
+      | image | quay.io/openshifttest/hello-openshift@sha256:b6296396b632d15daf9b5e62cf26da20d76157161035fefddbd0e7f7749f4167 |
     Then the step should succeed
     When I run the :patch client command with:
       | resource      | dc              |

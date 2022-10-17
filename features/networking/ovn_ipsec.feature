@@ -5,8 +5,8 @@ Feature: OVNKubernetes IPsec related networking scenarios
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7
   @network-ovnkubernetes @ipsec
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
   Scenario: OCP-38846:SDN Should be able to send node to node ESP traffic on IPsec clusters
@@ -18,6 +18,7 @@ Feature: OVNKubernetes IPsec related networking scenarios
     #Using socat tool to send ESP packets to host worker1 from worker0. Port 50 is for ESP protocol. Simulating a hostnetwork pod on worker0 with privileged mode to allow socat tool leverage
     Given evaluation of `50` is stored in the :protocol clipboard
     Given I have a project
+    And the appropriate pod security labels are applied to the namespace
     Given I obtain test data file "networking/net_admin_cap_pod.yaml"
     When I run oc create as admin over "net_admin_cap_pod.yaml" replacing paths:
        | ["spec"]["nodeName"]                                       | <%= cb.workers[0].name %>                                                          |
@@ -53,8 +54,8 @@ Feature: OVNKubernetes IPsec related networking scenarios
   @destructive
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7
   @network-ovnkubernetes @ipsec
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
   Scenario: OCP-38845:SDN Segfault on pluto IKE daemon should result in restarting pluto daemon and corresponding ovn-ipsec pod
@@ -85,8 +86,8 @@ Feature: OVNKubernetes IPsec related networking scenarios
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7
   @network-ovnkubernetes @ipsec
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
   Scenario: OCP-37591:SDN Make sure IPsec SA's are establishing in a transport mode
@@ -104,8 +105,8 @@ Feature: OVNKubernetes IPsec related networking scenarios
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7
   @network-ovnkubernetes @ipsec
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
   Scenario: OCP-39216:SDN Pod created on IPsec cluster should have appropriate MTU size to accomdate IPsec Header
@@ -128,8 +129,8 @@ Feature: OVNKubernetes IPsec related networking scenarios
   @destructive
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7
   @network-ovnkubernetes @ipsec
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
   Scenario: OCP-37590:SDN Delete all ovn-ipsec containers and check if they gets recreated
@@ -147,8 +148,8 @@ Feature: OVNKubernetes IPsec related networking scenarios
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7
   @network-ovnkubernetes @ipsec
-  @vsphere-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
   Scenario: OCP-37392:SDN pod to pod traffic on different nodes should be ESP encrypted
@@ -157,6 +158,7 @@ Feature: OVNKubernetes IPsec related networking scenarios
     Given I store all worker nodes to the :workers clipboard
     Given the default interface on nodes is stored in the :default_interface clipboard
     Given I have a project
+    And the appropriate pod security labels are applied to the namespace
     Given I obtain test data file "networking/pod-for-ping.json"
     When I run oc create over "pod-for-ping.json" replacing paths:
       | ["spec"]["nodeName"] | <%= cb.workers[1].name %> |
@@ -198,17 +200,23 @@ Feature: OVNKubernetes IPsec related networking scenarios
   # @case_id OCP-40569
   @admin
   @destructive
-  @inactive
-  @network-ovnkubernetes @ipsec
-  @4.12
+  @network-ovnkubernetes
+  @4.12 @4.11
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
+  @proxy @noproxy @disconnected @connected
+  @singlenode
   Scenario: OCP-40569:SDN Allow enablement/disablement ipsec at runtime
     Given the env is using "OVNKubernetes" networkType
     Given I store all worker nodes to the :workers clipboard
     Given the default interface on nodes is stored in the :default_interface clipboard
+
     #Enable ipsec through CNO
     Given as admin I successfully merge patch resource "networks.operator.openshift.io/cluster" with:
       | {"spec":{"defaultNetwork":{"ovnKubernetesConfig":{"ipsecConfig":{}}}}} |
-    Given I have a project
+
+    Given I have a project with proper privilege
+    And evaluation of `project.name` is stored in the :hello_pod_project clipboard
     Given I obtain test data file "networking/pod-for-ping.json"
     When I run oc create over "pod-for-ping.json" replacing paths:
       | ["spec"]["nodeName"] | <%= cb.workers[1].name %> |
@@ -227,37 +235,63 @@ Feature: OVNKubernetes IPsec related networking scenarios
     #Above command will curl "hello openshift" traffic every 1 second to worker1 test pod which is expected to cause ESP traffic generation across those nodes
     And a pod becomes ready with labels:
       | name=hello-pod |
-    #Make sure you are receiving ESP packets at the destination node. For that we will simulate a prviledged pod to allow tcpdumping
+
     Given I obtain test data file "networking/net_admin_cap_pod.yaml"
     When I run oc create as admin over "net_admin_cap_pod.yaml" replacing paths:
-      | ["spec"]["nodeName"]                                       | <%= cb.workers[1].name %> |
-      | ["metadata"]["namespace"]                                  | <%= project.name %>       |
-      | ["metadata"]["name"]                                       | hostnw-pod-worker1        |
-      | ["spec"]["containers"][0]["securityContext"]["privileged"] | true                      |
+      | ["spec"]["nodeName"]                                       | <%= cb.workers[1].name %>   |
+      | ["metadata"]["namespace"]                                  | <%= cb.hello_pod_project %> |
+      | ["metadata"]["name"]                                       | hostnw-pod-worker1          |
+      | ["spec"]["containers"][0]["securityContext"]["privileged"] | true                        |
     Then the step should succeed
     And a pod becomes ready with labels:
       | name=network-pod |
-    And evaluation of `pod.name` is stored in the :hostnw_pod_worker1 clipboard
-    #capturing tcpdump for 2 seconds
-    Given I wait up to 60 seconds for the steps to pass:
+    And evaluation of `pod.name` is stored in the :hello_pod_worker1 clipboard
+
+    #Check ESP traffic between two pods crossing nodes after enabling IPsec
+    Given I wait up to 90 seconds for the steps to pass:
     """
-    When admin executes on the "<%= cb.hostnw_pod_worker1 %>" pod:
-      | bash | -c | timeout  --preserve-status 2 tcpdump -i <%= cb.default_interface %> esp |
+    When admin executes on the "<%= cb.hello_pod_worker1 %>" pod:
+      | bash | -c | timeout  --preserve-status 2 tcpdump -v -i <%= cb.default_interface %> esp |
     Then the step should succeed
-    # Example ESP packet un-encrypted will look like 16:37:16.309297 IP ip-10-0-x-x.us-east-2.compute.internal > ip-10-0-x-x.us-east-2.compute.internal: ESP(spi=0xf50c771c,seq=0xfaad)
-    And the output should match:
-      | <%= cb.workers[0].name %>.* > <%= cb.workers[1].name %>.*: ESP |
+    And the output should contain "ESP"
     """
 
-    #Disable ipsec through CNO
+    #Need to restart ovnkube-master "north" leader after enabling ipsec to make sure use correct "north" leader
+    Given I store the ovnkube-master "north" leader pod in the clipboard
+    Given admin ensures "<%= cb.north_leader.name %>" pod is deleted from the "openshift-ovn-kubernetes" project    
+    Given I store the ovnkube-master "north" leader pod in the clipboard
+    #Check "north" leader return ipsec enabled/ture information
+    Given I wait up to 90 seconds for the steps to pass:
+    """
+    And admin executes on the pod "northd" container:
+      | bash | -c | ovn-nbctl --no-leader-only get nb_global . ipsec \| grep true |
+    And the output should contain "true"
+    """
+    
+    # Disable ipsec through CNO
     Given as admin I successfully merge patch resource "networks.operator.openshift.io/cluster" with:
       | {"spec":{"defaultNetwork":{"ovnKubernetesConfig":{"ipsecConfig":null}}}} |
-    Given I wait up to 60 seconds for the steps to pass:
+
+    Given I switch to the first user
+    And I use the "<%= cb.hello_pod_project %>" project
+    #Check NO ESP traffic between two pods crossing nodes after enabling IPsec
+    Given I wait up to 90 seconds for the steps to pass:
     """
-    When admin executes on the "<%= cb.hostnw_pod_worker1 %>" pod:
-      | bash | -c | timeout  --preserve-status 2 tcpdump -i <%= cb.default_interface %> esp |
+    When admin executes on the "<%= cb.hello_pod_worker1 %>" pod:
+      | bash | -c | timeout  --preserve-status 2 tcpdump -v -i <%= cb.default_interface %> esp |
     Then the step should succeed
-    # Example ESP packet un-encrypted will look like 16:37:16.309297 IP ip-10-0-x-x.us-east-2.compute.internal > ip-10-0-x-x.us-east-2.compute.internal: ESP(spi=0xf50c771c,seq=0xfaad)
-    And the output should not match:
-      | <%= cb.workers[0].name %>.* > <%= cb.workers[1].name %>.*: ESP |
+    And the output should not contain "ESP"
     """
+    
+    #Need to restart ovnkube-master "north" leader after enabling ipsec to make sure use correct "north" leader
+    Given I store the ovnkube-master "north" leader pod in the clipboard
+    Given admin ensures "<%= cb.north_leader.name %>" pod is deleted from the "openshift-ovn-kubernetes" project    
+    Given I store the ovnkube-master "north" leader pod in the clipboard
+    #Check "north" leader return ipsec disabled/false information
+    Given I wait up to 90 seconds for the steps to pass:
+    """
+    And admin executes on the pod "northd" container:
+      | bash | -c | ovn-nbctl --no-leader-only get nb_global . ipsec \| grep false |
+    And the output should contain "false"
+    """
+   

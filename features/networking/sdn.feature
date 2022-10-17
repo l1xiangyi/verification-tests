@@ -5,8 +5,8 @@ Feature: SDN related networking scenarios
   @admin
   @destructive
   @network-openshiftsdn @network-multitenant
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @proxy @noproxy
   Scenario: OCP-10025:SDN kubelet proxy could change to userspace mode
     Given the env is using one of the listed network plugins:
@@ -42,8 +42,8 @@ Feature: SDN related networking scenarios
   @admin
   @destructive
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @network-openshiftsdn @network-networkpolicy
   @proxy @noproxy
@@ -52,6 +52,7 @@ Feature: SDN related networking scenarios
     # we do not detect incomplete rule removal since ~4.3, BZ-1810316
     # so only test on >= 4.3
     Given the master version >= "4.3"
+    Given the env is using "OpenShiftSDN" networkType
     Given I select a random node's host
     And the node iptables config is checked
     And the step succeeded
@@ -83,14 +84,15 @@ Feature: SDN related networking scenarios
   # @case_id OCP-13847
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @proxy @noproxy @connected
   @network-openshiftsdn
   @heterogeneous @arm64 @amd64
   Scenario: OCP-13847:SDN an empty OPENSHIFT-ADMIN-OUTPUT-RULES chain is created in filter table at startup
     Given the master version >= "3.6"
+    Given the env is using "OpenShiftSDN" networkType
     Given I have a project
     Given I have a pod-for-ping in the project
     Then evaluation of `pod.node_name` is stored in the :node_name clipboard
@@ -192,8 +194,8 @@ Feature: SDN related networking scenarios
   # @case_id OCP-18535
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy
@@ -216,9 +218,9 @@ Feature: SDN related networking scenarios
   # @case_id OCP-23543
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
-  @network-ovnkubernetes @network-openshiftsdn
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
+  @network-openshiftsdn
   @proxy @noproxy
   @heterogeneous @arm64 @amd64
   Scenario: OCP-23543:SDN The iptables binary and rules on sdn containers should be the same as host
@@ -226,31 +228,31 @@ Feature: SDN related networking scenarios
     When I run commands on the host:
       | iptables-save --version |
     Then the step should succeed
-    And evaluation of `@result[:response].scan(/\d\.\d.\d/)` is stored in the :iptables_version_host clipboard
+    And evaluation of `@result[:stdout].scan(/\d\.\d.\d/)[0]` is stored in the :iptables_version_host clipboard
     #Comparing host and sdn container version for iptables binary
     When I run command on the node's sdn pod:
       | iptables-save | --version |
     Then the step should succeed
-    And evaluation of `@result[:response].scan(/\d\.\d.\d/)` is stored in the :iptables_version_pod clipboard
-    Then the expression should be true> cb.iptables_version_host == cb.iptables_version_pod
+    And the output should contain:
+      | <%= cb.iptables_version_host %> |
 
     When I run commands on the host:
       | iptables -S \| wc -l |
     Then the step should succeed
-    And evaluation of `@result[:response].split("\n")[0]` is stored in the :host_rules clipboard
+    And evaluation of `@result[:stdout].split("\n")[0]` is stored in the :host_rules clipboard
     #Comparing host and sdn container rules for iptables
     When I run command on the node's sdn pod:
       | bash | -c | iptables -S \| wc -l |
     Then the step should succeed
-    And evaluation of `@result[:response].split("\n")[0]` is stored in the :sdn_pod_rules clipboard
-    Then the expression should be true> cb.host_rules == cb.sdn_pod_rules
+    And evaluation of `@result[:stdout].split("\n")[0]` is stored in the :sdn_pod_rules clipboard
+    Then the expression should be true> cb.sdn_pod_rules >= cb.host_rules
 
   # @author huirwang@redhat.com
   # @case_id OCP-25707
   @admin
   @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
   Scenario: OCP-25707:SDN ovs-vswitchd process must be running on all ovs pods
@@ -266,8 +268,8 @@ Feature: SDN related networking scenarios
   @destructive
   @noproxy @connected
   @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @network-openshiftsdn
   Scenario: OCP-25706:SDN Killing ovs process should not put sdn and ovs pods in bad shape
     Given I have a project
@@ -310,9 +312,9 @@ Feature: SDN related networking scenarios
   # @author weliang@redhat.com
   # @case_id OCP-27655
   @admin
-  @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @upgrade-sanity
   @singlenode
   @network-ovnkubernetes @network-openshiftsdn
@@ -369,8 +371,8 @@ Feature: SDN related networking scenarios
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
   @network-ovnkubernetes
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
   Scenario: OCP-25787:SDN Don't write CNI configuration file until ovn-controller has done at least one iteration
@@ -424,8 +426,8 @@ Feature: SDN related networking scenarios
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
   @network-ovnkubernetes
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
   Scenario: OCP-25933:SDN NetworkManager should consider OVS interfaces as unmanaged
@@ -492,8 +494,8 @@ Feature: SDN related networking scenarios
   @admin
   @destructive
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @proxy @noproxy @disconnected @connected
   @network-openshiftsdn @network-networkpolicy @network-multitenant
   @heterogeneous @arm64 @amd64
@@ -518,6 +520,7 @@ Feature: SDN related networking scenarios
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
   Scenario: OCP-41132:SDN UDP offloads were disabled on vsphere platform
+    Given the env is using "OpenShiftSDN" networkType
     Given I select a random node's host
     Given the default interface on nodes is stored in the :default_interface clipboard
     And I run commands on the host:
@@ -531,8 +534,8 @@ Feature: SDN related networking scenarios
   # @case_id OCP-43146
   @admin
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @proxy @noproxy @disconnected @connected
   @network-openshiftsdn
   @heterogeneous @arm64 @amd64

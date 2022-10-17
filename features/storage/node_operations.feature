@@ -3,6 +3,9 @@ Feature: Node operations test scenarios
   # @author jhou@redhat.com
   @admin
   @destructive
+  @upgrade-sanity
+  @proxy @noproxy @disconnected @connected
+  @heterogeneous @arm64 @amd64
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
   Scenario Outline: Drain a node that has cloud vendor volumes
     Given environment has at least 2 schedulable nodes
@@ -10,7 +13,7 @@ Feature: Node operations test scenarios
 
     # Create a deployment config
     When I run the :new_app client command with:
-      | docker_image | quay.io/openshifttest/hello-openshift@sha256:b1aabe8c8272f750ce757b6c4263a2712796297511e0c6df79144ee188933623 |
+      | docker_image | quay.io/openshifttest/hello-openshift@sha256:56c354e7885051b6bb4263f9faa58b2c292d44790599b7dde0e49e7c466cf339 |
       | labels       | name=jenkins                                                                                          |
     Then the step should succeed
     And a pod becomes ready with labels:
@@ -59,9 +62,6 @@ Feature: Node operations test scenarios
       | case_id           | cloud_provider |
       | OCP-15276:Storage | cinder         | # @case_id OCP-15276
 
-    @upgrade-sanity
-    @proxy @noproxy @disconnected @connected
-    @heterogeneous @arm64 @amd64
     Examples:
       | case_id           | cloud_provider |
       | OCP-15283:Storage | aws-ebs        | # @case_id OCP-15283

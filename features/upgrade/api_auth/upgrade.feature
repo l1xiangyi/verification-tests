@@ -226,8 +226,8 @@ Feature: apiserver and auth related upgrade check
   @admin
   @destructive
   @4.12 @4.11 @4.10 @4.9 @4.8 @4.7 @4.6
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @singlenode
   @upgrade
   @network-ovnkubernetes @network-openshiftsdn
@@ -292,8 +292,8 @@ Feature: apiserver and auth related upgrade check
   @upgrade-check
   @users=upuser1,upuser2
   @4.12 @4.11 @4.10 @4.9 @4.8
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @singlenode
   @upgrade
   @network-ovnkubernetes @network-openshiftsdn
@@ -330,6 +330,7 @@ Feature: apiserver and auth related upgrade check
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
+  @rosa @aro @osd_ccs
   Scenario: kube-apiserver and openshift-apiserver should have zero-disruption upgrade - prepare
     # According to our upgrade workflow, we need an upgrade-prepare and upgrade-check for each scenario.
     # But some of them do not need any prepare steps, which lead to errors "can not find scenarios" in the log.
@@ -342,13 +343,14 @@ Feature: apiserver and auth related upgrade check
   @qeci
   @admin
   @4.12 @4.11 @4.10 @4.9
-  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
-  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi @alicloud-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @baremetal-upi @azure-upi @aws-upi @alicloud-upi
   @singlenode
   @upgrade
   @network-ovnkubernetes @network-openshiftsdn
   @proxy @noproxy @disconnected @connected
   @heterogeneous @arm64 @amd64
+  @rosa @aro @osd_ccs
   Scenario: kube-apiserver and openshift-apiserver should have zero-disruption upgrade
     # This case needs keep running oc commands against servers during upgrade, but our framework does not support
     # So using a workaround: run them in a background script during upgrade CI job and check result here
